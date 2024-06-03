@@ -1,0 +1,3 @@
+Section 4:
+- .env, file config lưu thông tin chung của dự án nhưng file env lưu thông tin nhạy cảm và file config không nhạy cảm. (username, password database)
+- 3 levels triển khai env

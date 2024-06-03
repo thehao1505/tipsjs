@@ -1,0 +1,15 @@
+Section 2:
+- express, morgan, helmet, compression
+- npm init -y (không cần phải điền thông tin khi khởi tạo)
+- In file app.js (init middleware, db, routes, handling error)
+- Morgan là thư viện in ra các log khi người dùng chạy request.
+  + app.use(morgan('combined')) // ::1 - - [27/May/2024:04:44:46 +0000] "GET / HTTP/1.1" 200 22 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.22621.2506"
+    * curl http://localhost:3333
+  + app.use(morgan('common'))   // ::1 - - [27/May/2024:04:46:55 +0000] "GET / HTTP/1.1" 200 22
+  + app.use(morgan('short'))    // ::1 - GET / HTTP/1.1 200 22 - 2.208 ms
+  + app.use(morgan('dev'))      // GET / 200 1.893 ms - 22 (22 is size of request unit: bytes)
+  + app.use(morgan('tiny'))     // GET / 200 22 - 1.876 ms 
+    Ex: ::1 - - [27/May/2024:04:44:46 +0000] "GET / HTTP/1.1" 200 22 "-" "Mozilla/5.0 (Windows NT; Windows NT 10.0; en-US) WindowsPowerShell/5.1.22621.2506"
+    * (IPv6 address) - - (userinfo n hostname not available) (Datetime) (Protocol HTTP and version) (- referrer, no info abt referer) (User-Agent string, 
+    chứa thông tin về trình duyệt/ứng dụng của client, bao gồm hệ điều hành, trình duyệt và các chi tiết khác)
+- Compression is a lib compress data from serer-client, reduce bandwidth

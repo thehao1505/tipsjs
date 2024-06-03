@@ -1,0 +1,41 @@
+@url_dev=http://localhost:3333/v1/api/
+@x-api-key=0e24d213ce676ac12e7b922a5d3bc38f3c98a964777d3706d4b22bd5dbfe7ce98cfbe32d382297cb2c41bd427b38d9c4f66f242cdecf17e69a4b4d644441e1bc
+@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjVhYjhlMDMwYjI3MGZhODI2YTkwYmEiLCJlbWFpbCI6InNob3B0aXBzQGdtYWlsLmNvbSIsImlhdCI6MTcxNzM4NTc2NiwiZXhwIjoxNzE3NTU4NTY2fQ.qxk46_GZtD2nKoNW45dZfR0bptxuJTlQ6YdauAByyVQ
+### signup
+POST {{url_dev}}shop/signup
+Content-Type: application/json
+x-api-key: {{x-api-key}}
+  
+  {
+    "name": "shoptips",
+    "email": "shoptips@gmail.com",
+    "password": "test1234"
+  }
+
+### login
+POST {{url_dev}}shop/login
+Content-Type: application/json
+x-api-key: {{x-api-key}}
+  
+  {
+    "email": "shoptips@gmail.com",
+    "password": "test1234"
+  }
+
+### logout
+POST {{url_dev}}shop/logout
+Content-Type: application/json
+x-api-key: {{x-api-key}}
+x-client-id: 665ab8e030b270fa826a90ba
+Authorization: {{token}}
+
+### handler token
+POST {{url_dev}}shop/handlerRefreshToken
+Content-Type: application/json
+x-api-key: {{x-api-key}}
+x-client-id: 665ab8e030b270fa826a90ba
+Authorization: {{token}}
+
+  {
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjVhYjhlMDMwYjI3MGZhODI2YTkwYmEiLCJlbWFpbCI6InNob3B0aXBzQGdtYWlsLmNvbSIsImlhdCI6MTcxNzM4NTc2NiwiZXhwIjoxNzE3OTkwNTY2fQ.OwzQx0U00FjbVCa5nqZCB75E5qXJA-Ryu4117Wcrwrg"
+  }

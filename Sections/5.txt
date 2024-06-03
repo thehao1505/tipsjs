@@ -1,0 +1,81 @@
+Section 5:
+- extension for mongo nodejs
+- 200 OK, 201 Created, 
+  const holderShop = await shopModels.findOne({ email }).lean() (src/controllers/access.controller.js)
+  Việc dùng lean() sẽ tác động tới 4 yếu tố:
+  + Performance: mongoose skip hydating the result. Hydration là quá trình tạo 
+      tài liệu mongoose đầy đủ với tất cả các tính năng như theo dõi thay đổi, getter setter và virtual.
+  + Returned Object: use lean() will returns plain JS object where as return mongoose docs
+  + Manipulation:
+  + Virtual:
+- Thuật toán sign private key và public key để tạo ra refreshToken và accessToken (src/controllers/access.controller.js)
+  privateKey (k lưu trong system) dùng để sign Token, publicKey dùng để verify token
+- Thuật toán dùng keypair bất đối xứng rsa
+
+----------------------------------------------------------------------------
+      // Created privateKey, publicKey
+      const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
+        modulusLength: 4096,            Độ dài của modulus, càng lớn càng bảo mật
+        publicKeyEncoding: {            
+          type: 'pkcs1',                Tiêu chuẩn PKCS1
+          format: 'pem',                Privacy Enhanced Mail. Cho phép lưu trữ khóa trong tệp readable.
+        },
+        privateKeyEncoding: {
+          type: 'pkcs1',                
+          format: 'pem',
+        },
+      });
+      
+      // Save privateKey, publicKey to DB
+      const publicKeyString = await KeyTokenService.createKeyToken({
+        userId: newShop._id,            
+        publicKey,                      
+      });
+
+      if (!publicKeyString) {
+        return {
+          code: 'xxxx',
+          message: 'publicKeyString error',
+        }
+      }
+
+      const publicKeyObject = crypto.createPublicKey(publicKeyString);
+
+      // Create token pair
+      const tokens = await createTokenPair({userId: newShop._id, email}, publicKeyObject, privateKey);
+----------------------------------------------------------------------------
+      const createTokenPair = async (payload, publicKey, privateKey) => {
+        const accessToken = JWT.sign(payload, privateKey, {           // Sign AT bằng privateKey
+          expiresIn: '2d' 
+        });
+        const refreshToken = JWT.sign(payload, privateKey, {          // Sign RT bằng privateKey
+          expiresIn: '7d' 
+        });
+
+        JWT.verify(accessToken, publicKey, (err, decoded) => {        // Dùng publicKey để verify AT
+          if (err) {
+            console.log(`errror verify::`, err);
+          } else {
+            console.log(`decoded::`, decoded);
+          }
+        });
+
+        return { accessToken, refreshToken };
+      }
+----------------------------------------------------------------------------
+      class KeyTokenService {
+        static createKeyToken = async ({ userId, publicKey, privateKey }) => {
+          try {
+            const publicKeyString = publicKey.toString();
+            const tokens = await keytokenModel.create({
+              user: userId,
+              publicKey: publicKeyString,
+            });
+
+            return tokens ? tokens.publicKey : null;
+          } catch (error) {
+            return error;
+          }
+        }
+      }
+      

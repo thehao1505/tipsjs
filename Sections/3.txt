@@ -1,0 +1,13 @@
+Section 3:
+- moongose
+- Tạo 1 lớp kết nối database sử dụng singleton (chỉ cho phép 1 instance (new Object()) được khởi tạo (static))
+- poolSize đề cập đến số lượng kết nối cơ sở dữ liệu được duy trì trong một "pool" (bể chứa) sẵn sàng để sử dụng. Khi ứng dụng cần kết nối với cơ sở dữ liệu,
+    thay vì tạo một kết nối mới mỗi lần, nó sẽ lấy một kết nối từ pool. PoolSize xác định số lượng kết nối tối đa được duy trì trong pool. Nếu poolSize quá nhỏ,
+    ứng dụng có thể gặp phải vấn đề về hiệu suất do phải chờ kết nối trước khi có thể thực hiện truy vấn. Nếu poolSize quá lớn, sẽ tốn nhiều tài nguyên hệ
+    thống để duy trì các kết nối không sử dụng. Việc thiết lập poolSize phù hợp phụ thuộc vào tải trọng của ứng dụng và cấu hình của máy chủ database. 
+    Thông thường, một giá trị trong khoảng 5-20 kết nối là hợp lý để bắt đầu. 
+  const os = require('os')
+  const process = require('process')
+  const numCores = os.cpus().length;              Số lõi của máy tính
+  const memoryUsage = process.memoryUsage().rss;  Dung lượng đang tiêu hao hiện tại
+  app.use(compression())                          Compress data from serer-client, reduce bandwidth

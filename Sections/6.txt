@@ -1,0 +1,3 @@
+Section 6:
+- Viết API key và check permission
+- apikey.service.js, apikey.model.js, checkAuth.js, add middleware vào trong route.
