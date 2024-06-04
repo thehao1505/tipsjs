@@ -1,6 +1,7 @@
 @url_dev=http://localhost:3333/v1/api/
 @x-api-key=0e24d213ce676ac12e7b922a5d3bc38f3c98a964777d3706d4b22bd5dbfe7ce98cfbe32d382297cb2c41bd427b38d9c4f66f242cdecf17e69a4b4d644441e1bc
-@token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjVhYjhlMDMwYjI3MGZhODI2YTkwYmEiLCJlbWFpbCI6InNob3B0aXBzQGdtYWlsLmNvbSIsImlhdCI6MTcxNzM4NTc2NiwiZXhwIjoxNzE3NTU4NTY2fQ.qxk46_GZtD2nKoNW45dZfR0bptxuJTlQ6YdauAByyVQ
+@x-rtoken-id=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjVhYjhlMDMwYjI3MGZhODI2YTkwYmEiLCJlbWFpbCI6InNob3B0aXBzQGdtYWlsLmNvbSIsImlhdCI6MTcxNzQxMDYzMSwiZXhwIjoxNzE4MDE1NDMxfQ.sNYxBj8wmiZyPX0qdZVKZZgHIC9G8NBLTEUxT9qJCWw
+@Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjVhYjhlMDMwYjI3MGZhODI2YTkwYmEiLCJlbWFpbCI6InNob3B0aXBzQGdtYWlsLmNvbSIsImlhdCI6MTcxNzQxMDYzMSwiZXhwIjoxNzE3NTgzNDMxfQ.nueHzK7IW7YTgiUMtNV248okWHSTVKRdIjNGiDXZXe8
 ### signup
 POST {{url_dev}}shop/signup
 Content-Type: application/json
@@ -27,15 +28,33 @@ POST {{url_dev}}shop/logout
 Content-Type: application/json
 x-api-key: {{x-api-key}}
 x-client-id: 665ab8e030b270fa826a90ba
-Authorization: {{token}}
+x-rtoken-id: {{x-rtoken-id}}
 
 ### handler token
 POST {{url_dev}}shop/handlerRefreshToken
 Content-Type: application/json
 x-api-key: {{x-api-key}}
 x-client-id: 665ab8e030b270fa826a90ba
-Authorization: {{token}}
+x-rtoken-id: {{x-rtoken-id}}
 
+### create product
+POST {{url_dev}}product
+Content-Type: application/json
+x-api-key: {{x-api-key}}
+x-client-id: 665ab8e030b270fa826a90ba
+authorization: {{Authorization}}
+  
   {
-    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjVhYjhlMDMwYjI3MGZhODI2YTkwYmEiLCJlbWFpbCI6InNob3B0aXBzQGdtYWlsLmNvbSIsImlhdCI6MTcxNzM4NTc2NiwiZXhwIjoxNzE3OTkwNTY2fQ.OwzQx0U00FjbVCa5nqZCB75E5qXJA-Ryu4117Wcrwrg"
+    "product_name": "iPhone 15 128GB",
+    "product_description": "High-quality smartphone",
+    "product_price": 500,
+    "product_category": "Electronics",
+    "product_thumb": "product_thumb",
+    "product_quantity": 50,
+    "product_attributes": {
+      "manufacturer": "Apple",
+      "model": "iPhone 15",
+      "color": "Gold"
+    }
   }
+  
